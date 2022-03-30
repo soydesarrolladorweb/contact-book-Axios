@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        html{
+            width: 100%;
+            height: 100%;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        *,
+        *:before,
+        *:after{
+            box-sizing: border-box;
+        }
+ 
+        body{
+           margin: 0;
+           padding: 0;
+           background: #7209b7;
+           
+        }
+        h1{
+            font-size: 28px;
+            margin: 48px 0 30px;
+            padding: 0;
+            color: #46bb83;
+            /* color: #fff; */
+            text-align: center;
+        }
+ 
+        .container{
+            margin: 10px auto;
+            height: 30%;
+            width: 80%;
+            padding: 30px;
+            background: rgba(0, 0, 0, .5);
+            border-radius: 12px;
+        }
+ 
+        .container h2, .container__table h2{
+            margin: 0 0 30px;
+            padding: 0;
+            font-size: 26px;
+            /* color: #4ccf90; */
+            color: #fff;
+            text-align: center;
+        }
+ 
+         .container .element input{
+            width: 100%;
+            padding: 10px 0;
+            color: #fff;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #fff;
+            margin-bottom: 30px;
+        }
+ 
+        .container .element input[type="submit"]{
+            background-color:#62b3a1;
+            border: none;
+            letter-spacing: 4px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+ 
+        .container .element input[type="reset"]{
+            background-color: #f72585;
+            border: none;
+            letter-spacing: 4px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+ 
+        .container__table-total{
+            width: 90%;
+            min-width: 230px;
+            max-width: 300px;
+            height: 250px;
+            margin: auto;
+            display: grid;
+            justify-content: center;
+        }
+ 
+        .container__table-total table{
+            width: 80%;
+            height: 100%;
+            margin: auto;
+            /* border-spacing: 2px; */
+        }
+        .crud-table th{
+            /* color: #46bb83; */
+            color: #fff;
+            margin: auto;
+            padding: 0;
+            width: 100%;
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding-top: 1rem;
+        }
+ 
+         
+ 
+        template{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+        }
+ 
+     
+        .name,.phone{
+            color: beige;
+            font-size: 14px;
+            font-weight: 400;
+        }
+ 
+        .delete{
+            background-color:#f72585;
+            color: beige;
+            font-weight: 700;
+            border-radius: 8px;
+            width: 4.2rem;
+            height: 2rem;
+            margin: 0.5rem;
+            cursor: pointer;
+            border-style: none;
+        }
+
+        
+        .edit{
+            background-color: #62b3a1;
+            color: beige;
+            font-weight: 700;
+            border-radius: 8px;
+            width: 3.8rem;
+            height: 2rem;
+            padding-bottom: 1px;
+            cursor: pointer;
+            border-style: none;
+        }
+ 
+        .template__buttons{
+            display: flex;
+            justify-content: center;
+            vertical-align: baseline;
+        }
+ 
+        .template__buttons a{
+            padding-top: 10px;
+        }
+ 
+        @media screen and (min-width: 644px) {
+ 
+             .container{
+                 width: 50%;
+                 height: 100%;
+             }
+             
+             .container h2, .container__table h2{
+                 font-size: 32px;
+             }
+             .crud-table th{
+                 font-size: 1.5rem;
+                 padding: 10px;
+             }
+             .name{
+                 width: 100%;
+                 display: inline-block;
+             }
+ 
+             .container .element input[type="submit"], input[type="reset"]{
+                 font-size: 18px;
+                 letter-spacing: 8px;
+             }
+ 
+             table, th, td, template{
+                 width: 100%;
+                 padding: 10px;
+             }
+ 
+             .template__buttons a{
+                 padding-top: 8px;
+            }
+ 
+            .edit, .delete{
+                width: 5rem;
+            }
+                   
+        }
+ 
+        @media screen and (min-width: 998px) {
+            h1{
+                font-size: 40px;
+            }
+            .container .element input{
+                font-size: 18px;
+            }
+    
+            .name, .phone{
+                width: 100%;
+                font-size: 16px;
+            }
+            
+            .grid{
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+     }
+ 
+    </style>
+    <title>CRUD API REST AXIOS </title>
+</head>
+<body>
+        <h1>CRUD API REST AXIOS</h1>
+    <section id="section1" class="crud">
+        <article class="container">
+            <h2 class="crud-title">Agregar Contacto</h2>
+            <form class="crud-form">
+                <div class="element">
+                    <input type="text" name="nombre" placeholder="Nombre" required>    
+                </div>
+                <div class="element">
+                    <input type="text" name="telefono" placeholder="telefono" required>
+                </div>
+                <div class="element">
+                    <input type="submit" value="Enviar">
+                    <input type="reset" value="Cancelar" class="cancel">
+                </div>
+                
+                
+                <!-- si el id viene vacio significa que el $form va a procesar una nueva información (CREATE - POST) caso contrario si viene con inf va a realizar una edición -->
+                <input type="hidden" name="id">
+            </form>
+        </article>
+        <article class="container__table">
+            <h2>Contactos</h2>
+           
+            <div class="container__table-total">
+                <table class="crud-table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Telefono</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            
+        </article>
+    </section>
+
+    <template id="crud-template">
+        <tr>
+            <td class="name"></td>
+            <td class="phone"></td>
+            <td class="template__buttons">
+                <a href="#section1"><button  class="edit">Editar</button></a>
+                <button class="delete">Eliminar</button>
+            </td>
+        </tr>
+    </template>
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const d = document,
+         $table = d.querySelector(".crud-table"),
+         $form = d.querySelector(".crud-form"),
+         $title = d.querySelector(".crud-title"),
+         $template = d.getElementById("crud-template").content,
+         $fragment = d.createDocumentFragment();
+         
+
+        // funcion asincrona 
+        const getAll = async () => {
+            try {
+                let res = await axios.get("http://localhost:3000/agendaEmpresa"),
+                 json = await res.data;
+                 console.log(json);
+
+                 json.forEach(el =>{
+                    $template.querySelector(".name").textContent = el.nombre;
+                    $template.querySelector(".phone").textContent = el.telefono;
+                    $template.querySelector(".edit").dataset.id = el.id;
+                    $template.querySelector(".edit").dataset.name = el.nombre;
+                    $template.querySelector(".edit").dataset.phone = el.telefono;
+                    $template.querySelector(".delete").dataset.id = el.id;
+
+                    // se crear la variable $clone para que importe un nodo $template, para no estar pegandole por cada insercción al DOM
+                    // mejor le pegamos al fragmento y aca le decimo que me cree el nodo
+                    let $clone = d.importNode($template, true);
+                    $fragment.appendChild($clone);
+                });
+                // dentro de mi etiqueta $table busca el tbody y dentro del tbody agrega este fragmento
+                $table.querySelector("tbody").appendChild($fragment);
+            } catch (err) {
+                let message = err.statusText || "Ocurrio un error";
+                $table.insertAdjacentHTML("afterend", `<p><b>${err.status}:${message}</b></p>`);           
+            }
+        }
+        
+
+        d.addEventListener("DOMContentLoaded", getAll); 
+
+        // AXIOS Y ASYNC AWAIT CREATE - POST * UPDATE - PUT
+        // Creando evento con el boton enviar del $form
+
+        d.addEventListener("submit", async e =>{
+            if(e.target === $form){
+                e.preventDefault();
+                
+                if(!e.target.id.value){
+                    //Create - POST
+                    try {
+                        let options = {
+                            method: "POST",
+                            headers: {
+                                "Content-type": "application/json; charset=utf-8"
+                            },
+                            data: JSON.stringify({
+                                // datos de la caja de texto del formulario .nombre.value | .telefono.value
+                                nombre: e.target.nombre.value,
+                                telefono: e.target.telefono.value
+                            })
+                        },
+                         res = await axios("http://localhost:3000/agendaEmpresa", options),
+                         json = await res.data;
+
+                        location.reload();
+                    } catch (err) {
+                        let message = err.statusText || "Ocurrio un error";
+                        $form.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}: ${message}</b></p>`);
+                    }
+                } else {
+                    //Update - PUT
+
+                    try {
+                        let options = {
+                            method: "PUT",
+                            headers: {
+                                "Content-type": "application/json; charset=utf-8"
+                            },
+                            data: JSON.stringify({
+                                nombre: e.target.nombre.value,
+                                telefono: e.target.telefono.value
+                            })
+                        },
+                         res = await axios(`http://localhost:3000/agendaEmpresa/${e.target.id.value}`, options),
+                         json = await res.data;
+
+                        location.reload();
+                         
+                    } catch (err) {
+                        let message = err.statusText || "Ocurrio un error";
+                        $form.insertAdjacentHTML("afterend", `<p><b>Error ${err.status}: ${message}</b></p>`);
+                    }
+                }
+            }
+        });
+
+        // AXIOS Y ASYNC AWAIT EVENT EDIT
+
+        d.addEventListener("click", async e =>{
+
+            if(e.target.matches(".edit")){
+                $title.textContent = "Editar Contacto";
+                $form.nombre.value = e.target.dataset.name;
+                $form.telefono.value = e.target.dataset.phone;
+                $form.id.value = e.target.dataset.id;
+            }
+
+            // Limpiamos el form si el usuario desea cancelar la edición.
+            if(e.target.matches(".cancel")){
+                $title.textContent = "Agregar Contacto";
+                $form.nombre.value = null;
+                $form.telefono.value = null;
+                $form.id.value = null;
+            }
+
+            // AXIOS Y ASYNC AWAIT EVENT DELETE
+
+            if(e.target.matches(".delete")){
+                let isDelete = confirm(`Estas seguro de eliminar el id ${e.target.dataset.id}? `);
+
+                if (isDelete){
+                    //DELETE - DELETE / Interpolamos la url y le adicionamos la ruta como lo hicimos con la app de insomnia
+                    // Obtenemos del dataset el id del dato que se valla a eliminar.
+                    try {
+                        let options = {
+                            method: "DELETE",
+                            headers: {
+                                "Content-type": "application/json; charset=utf-8"
+                            },
+                        },
+                         res = await axios(`http://localhost:3000/agendaEmpresa/${e.target.dataset.id}`, options),
+                         json = await res.data;
+
+                        location.reload();
+                         
+                    } catch (err) {
+                        let message = err.statusText || "Ocurrio un error";
+                        alert(`Error: ${err.status}: ${message}`);
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
